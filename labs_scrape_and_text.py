@@ -1,4 +1,3 @@
-# Must be in conda env "sketch"
 import pandas as pd
 import re
 import yagmail
@@ -9,6 +8,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 ######################################################################################################
 # Using Send email function for if new dogs are found, using Yagmail
+# To run this program yourself change the sender/receiver_email and password below!
 ######################################################################################################
 def send_email(df):
     sender_email = 'lukefeilbergp@gmail.com'
@@ -35,6 +35,7 @@ def send_email(df):
 
 ######################################################################################################
 # Using Selenium to scrape website
+# 
 ######################################################################################################
 # Setting path to Selenium Firefox browser
 path = r'C:\Users\lukef\AppData\Local\BrowserDriver\geckodriver.exe'
@@ -105,13 +106,16 @@ df['unavailable'] = df['name'].str.lower().str.contains('adopted') \
 ######################################################################################################
 # Reading in saved (old) dataframe
 ######################################################################################################
-old = pd.read_csv('dogs.csv')
+try:
+    old = pd.read_csv('dogs.csv')
+except:
+    old = pd.DataFrame(columns = df.columns)
 
 
 ######################################################################################################
 # Checking for new dogs, sending email if so!
 ######################################################################################################
-# If a an id is not in the old list of id's
+# If an id is not in the old list of id's
 if sum(~df['id'].isin(old['id'])) > 0:
 
     print('New dogs found! :-)')
@@ -122,7 +126,7 @@ if sum(~df['id'].isin(old['id'])) > 0:
 
 else:
 
-	print('No new dogs yet!')
+    print('No new dogs yet!')
 
 ######################################################################################################
 # Concatenating and dropping duplicates, then saving for next time
