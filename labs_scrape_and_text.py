@@ -11,10 +11,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 # To run this program yourself change the sender/receiver_email and password below!
 ######################################################################################################
 def send_email(df):
-    sender_email = 'lukefeilbergp@gmail.com'
-    receiver_email = '19495255075@tmomail.net'
-    subject = 'New dogs alert!'
-    password = 'Enter_Password_Here'
+    sender_email = 'lukefeilbergp@gmail.com' # Edit here!
+    receiver_email = '19495255075@tmomail.net' # Edit here!
+    subject = 'New dogs alert!' 
+    password = 'Enter_Password_Here' # Edit here!
     contents = []
     
     yag = yagmail.SMTP(user=sender_email, password=password)
@@ -35,10 +35,10 @@ def send_email(df):
 
 ######################################################################################################
 # Using Selenium to scrape website
-# 
+# You'll have to download Selenium and set the path below.
 ######################################################################################################
 # Setting path to Selenium Firefox browser
-path = r'C:\Users\lukef\AppData\Local\BrowserDriver\geckodriver.exe'
+path = r'C:\Users\lukef\AppData\Local\BrowserDriver\geckodriver.exe' # Edit here!
 
 # Setting headless
 options = webdriver.FirefoxOptions()
