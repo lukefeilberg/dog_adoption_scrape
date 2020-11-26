@@ -9,3 +9,4 @@ I use the package Selenium to scrape the website, Pandas for some of the minor d
 This notebook was used to build up the script from which I then essentially just copy-pasted over the cells to an actual .py file. I then created a batch script which runs the .py file and finally created a Task on Windows Task Scheduler that runs the batch script running the Python script every hour every day from 10am to 8pm (only sending texts when new dogs are found). An example text is shown below:
 
 ![alt text](https://i.ibb.co/HC9BFMk/Text-Screenshot.png)
+(Note: The Husky "Artichoke" had many pups all uploaded at the same time in case that data looked off to you!)
