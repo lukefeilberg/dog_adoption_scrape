@@ -19,7 +19,7 @@ def __select_geckodriver() -> Union[str, None]:
 def __reset_configuration(filepath: str) -> None:
 
     print(
-        "Your configuration file appears to be corrupted or non-existent. Script configuration has been reset."
+        "Your configuration file appears to be corrupted, non-existent or its content is incomplete. Script configuration has been reset."
     )
     print(
         f'Please edit {os.path.join(os.path.dirname(__file__), "config.env")} file and provide necessary parameters.'
@@ -38,14 +38,14 @@ def __reset_configuration(filepath: str) -> None:
         "recipient_email = <recipient_email_here> # Recipient email (where emails will be sent to).\n"
     )
     new_conf_file.write("\n\n# Script configuration parameters. (Edit at your own risk)\n")
-    new_conf_file.write(f"geckodriver_path = {__select_geckodriver()}")
+    new_conf_file.write(f"geckodriver_path = {__select_geckodriver()} # Path to geckodriver binary")
     new_conf_file.close()
     sys.exit(-1)
 
 
 def load_configuration(filepath: str) -> dict:
-    unedited_parameters_ptrn = re.compile(
-        "^<(sender_email_here|sender_pwd_here|recipient_email_here)>$"
+    unedited_usr_parameters_ptrn = re.compile(
+        "^<(sender_email_here|sender_pwd_here|recipient_email_here>)$"
     )
 
     if type(filepath) != str:
@@ -72,10 +72,8 @@ def load_configuration(filepath: str) -> dict:
 
         for conf_line in enumerate(config_arr):
             conf_pair = conf_line[1].split("=")
-            if unedited_parameters_ptrn.match(conf_pair[1]):
-                raise Exception(
-                    f"Some configuration parameters have not been provided.\nPlease specify those parameters in '{os.path.abspath(filepath)}' file"
-                )
+            if unedited_usr_parameters_ptrn.match(conf_pair[1]):
+                __reset_configuration("config.env")
             if not conf_pair[0] or not conf_pair[1]:
                 __reset_configuration(filepath)
             config[conf_pair[0]] = conf_pair[1]
